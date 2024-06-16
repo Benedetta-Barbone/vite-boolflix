@@ -1,13 +1,13 @@
 <script>
 import axios from 'axios';
-import MovieList from './components/MovieList.vue';
 import SearchBar from './components/SearchBar.vue';
+import MovieList from './components/MovieList.vue';
 
 export default {
   name: 'App',
   components: {
-    MovieList,
-    SearchBar
+    SearchBar,
+    MovieList
   },
   data() {
     return {
@@ -17,7 +17,7 @@ export default {
   methods: {
     async fetchMovies(query) {
       try {
-        const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+        const apiKey = 'e9b84d50153bb26143d63dd4aa30fb8a'; // API key definita direttamente
         const response = await axios.get('https://api.themoviedb.org/3/search/movie', {
           params: {
             api_key: apiKey,
@@ -30,7 +30,7 @@ export default {
         console.error('Error fetching movies:', error);
       }
     }
-}
+  }
 }
 </script>
 

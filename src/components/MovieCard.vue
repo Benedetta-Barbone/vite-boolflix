@@ -1,4 +1,3 @@
-
 <script>
 export default {
   name: 'MovieCard',
@@ -20,6 +19,8 @@ export default {
     </div>
   </div>
 </template>
+
+
 <style scoped>
 .movie-card {
   border: 1px solid #ddd;

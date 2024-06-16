@@ -1,5 +1,4 @@
-
-  <script>
+<script>
   export default {
     name: 'SearchBar',
     data() {
