@@ -6,6 +6,19 @@ export default {
       type: Object,
       required: true
     }
+  },
+  methods: {
+    getFlagClass(languageCode) {
+      const langToCountry = {
+        en: 'us',
+        it: 'it',
+        fr: 'fr',
+        es: 'es',
+        de: 'de',
+        ja: 'jp',
+      };
+      return langToCountry[languageCode] || 'unknown';
+    }
   }
 }
 </script>
@@ -16,12 +29,15 @@ export default {
     <div class="movie-details">
       <h2>{{ movie.title }}</h2>
       <p>{{ movie.overview }}</p>
+      <p>Lingua: <span :class="`fi fi-${getFlagClass(movie.original_language)}`"></span></p>
     </div>
   </div>
 </template>
 
 
 <style scoped>
+@import 'flag-icons/css/flag-icons.min.css';
+
 .movie-card {
   border: 1px solid #ddd;
   border-radius: 5px;

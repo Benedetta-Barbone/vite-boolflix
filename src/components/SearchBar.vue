@@ -20,7 +20,7 @@
         v-model="query"
         @keyup.enter="handleSearch"
         type="text"
-        placeholder="Cerca un film..."
+        placeholder="Cerca un film o una serie tv..."
       />
       <button @click="handleSearch">Cerca</button>
     </div>

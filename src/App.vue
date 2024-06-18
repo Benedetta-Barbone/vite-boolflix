@@ -11,23 +11,44 @@ export default {
   },
   data() {
     return {
-      movies: []
+      media: []
     };
   },
   methods: {
-    async fetchMovies(query) {
+    async fetchMedia(query) {
       try {
-        const apiKey = 'e9b84d50153bb26143d63dd4aa30fb8a'; // API key definita direttamente
-        const response = await axios.get('https://api.themoviedb.org/3/search/movie', {
-          params: {
-            api_key: apiKey,
-            query: query,
-            language: 'it-IT'
-          }
-        });
-        this.movies = response.data.results;
+        const apiKey = 'e9b84d50153bb26143d63dd4aa30fb8a';
+        
+        const [moviesResponse, tvShowsResponse] = await Promise.all([
+          axios.get('https://api.themoviedb.org/3/search/movie', {
+            params: {
+              api_key: apiKey,
+              query: query,
+              language: 'it-IT'
+            }
+          }),
+          axios.get('https://api.themoviedb.org/3/search/tv', {
+            params: {
+              api_key: apiKey,
+              query: query,
+              language: 'it-IT'
+            }
+          })
+        ]);
+
+        const movies = moviesResponse.data.results.map(item => ({
+          ...item,
+          media_type: 'movie'
+        }));
+
+        const tvShows = tvShowsResponse.data.results.map(item => ({
+          ...item,
+          media_type: 'tv'
+        }));
+
+        this.media = [...movies, ...tvShows];
       } catch (error) {
-        console.error('Error fetching movies:', error);
+        console.error('Error fetching media:', error);
       }
     }
   }
@@ -37,7 +58,7 @@ export default {
 
 <template>
   <div id="app">
-    <SearchBar @search="fetchMovies" />
-    <MovieList :movies="movies" />
+    <SearchBar @search="fetchMedia" />
+    <MovieList :movies="media" />
   </div>
 </template>
