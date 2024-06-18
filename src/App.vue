@@ -1,12 +1,12 @@
 <script>
 import axios from 'axios';
-import SearchBar from './components/SearchBar.vue';
+import Header from './components/Header.vue';
 import MovieList from './components/MovieList.vue';
 
 export default {
   name: 'App',
   components: {
-    SearchBar,
+    Header,
     MovieList
   },
   data() {
@@ -58,7 +58,7 @@ export default {
 
 <template>
   <div id="app">
-    <SearchBar @search="fetchMedia" />
+    <Header @search="fetchMedia" />
     <MovieList :movies="media" />
   </div>
 </template>

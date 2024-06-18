@@ -7,6 +7,11 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      hover: false
+    };
+  },
   computed: {
     movieStars() {
       return Math.ceil(this.movie.vote_average / 2);
@@ -26,7 +31,7 @@ export default {
     },
     getFullImagePath(posterPath) {
       const baseUrl = 'https://image.tmdb.org/t/p/';
-      const size = 'w342'; // Dimensione dell'immagine, puoi cambiarla se necessario
+      const size = 'w200';
       return `${baseUrl}${size}${posterPath}`;
     }
   }
@@ -55,26 +60,41 @@ export default {
 @import 'flag-icons/css/flag-icons.min.css';
 
 .movie-card {
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  position: relative;
+  width: 300px;
+  height: 450px;
   overflow: hidden;
-  margin: 10px;
-  width: 200px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
 }
-.movie-poster {
+.movie-card:hover {
+  transform: scale(1.05);
+}
+.movie-card img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
 }
 .movie-details {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  width: 100%;
   padding: 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
 }
-.movie-details h2 {
-  font-size: 1.2em;
-  margin: 10px 0;
+.movie-card:hover .movie-details {
+  opacity: 1;
+}
+.movie-details h2,
+.movie-details h3 {
+  margin: 0;
+  padding: 0;
 }
 .movie-details p {
-  margin: 5px 0;
-  color: #555;
+  margin: 10px 0;
 }
 </style>
