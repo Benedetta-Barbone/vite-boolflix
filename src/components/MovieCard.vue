@@ -7,6 +7,11 @@ export default {
       required: true
     }
   },
+  computed: {
+    movieStars() {
+      return Math.ceil(this.movie.vote_average / 2);
+    }
+  },
   methods: {
     getFlagClass(languageCode) {
       const langToCountry = {
@@ -18,6 +23,11 @@ export default {
         ja: 'jp',
       };
       return langToCountry[languageCode] || 'unknown';
+    },
+    getFullImagePath(posterPath) {
+      const baseUrl = 'https://image.tmdb.org/t/p/';
+      const size = 'w342'; // Dimensione dell'immagine, puoi cambiarla se necessario
+      return `${baseUrl}${size}${posterPath}`;
     }
   }
 }
@@ -30,6 +40,12 @@ export default {
       <h2>{{ movie.title }}</h2>
       <p>{{ movie.overview }}</p>
       <p>Lingua: <span :class="`fi fi-${getFlagClass(movie.original_language)}`"></span></p>
+      <p>
+        Voto: 
+        <span v-for="star in 5" :key="star">
+          <font-awesome-icon :icon="star <= movieStars ? 'star' : ['far', 'star']" />
+        </span>
+      </p>
     </div>
   </div>
 </template>
